@@ -1,33 +1,79 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.body {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  text-align: center
+  }
+
+#root {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center
 }
 
-.App-link {
-  color: #61dafb;
+.bigCalendar{
+  border: 2px solid black ;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: space-around;
+  padding: 0 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.oneMonth{
+  flex-direction: column;
+  width: auto;
+  height: auto;
+  /*border: 1px solid black ;*/
+  text-align: center;
+  padding: 8px 0 ;
+
+}
+
+.mainStyle{
+  height: auto;
+  border: 2px solid black ;
+  display: flex;
+  text-align: center;
+  padding: 20px;
+}
+
+
+tr {
+
+}
+.tdStyle {
+  width: 30px;
+  height: 20px;
+  border: 1px solid black;
+  font-size: 16px;
+  border-radius: 2px;
+}
+.tdStyle:hover {
+background-color: rgba(229, 229, 229);
+}
+.weekDay {
+  background-color: darkgray;
+}
+
+.changeYear {
+
+  width: auto;
+  height: auto;
+}
+
+.invisible {
+  border: 1px solid white;
+}
+.invisible:hover {
+  border: 1px solid white;
+  background-color: white;
 }
