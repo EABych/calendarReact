@@ -10,7 +10,6 @@ function MakeTitleWeek(props) {
         return <td className='tdStyle weekDay' key={item}>{item}</td>
     })
 }
-
 function MakeWeek(props) {
     return props.arrQuantityOfDay.map((item) => {
         return <CreatOneWeek i={item}
@@ -21,10 +20,10 @@ function MakeWeek(props) {
                              year={props.year}
                              activeDate={props.activeDate}
                              allEvent={props.allEvent}
+                             todayDate={props.todayDate}
         />
     })
 }
-
 function MakeInputForAddTime(props) {
     return (
         <p>{props.name}
@@ -37,7 +36,6 @@ function MakeInputForAddTime(props) {
         </p>
     )
 }
-
 function MakeInputForAddDiscriptionEvent(props) {
     return (
         <input type="text"
@@ -75,9 +73,7 @@ const CreateMonth = (props) => {
                                                      <button onClick={props.addNewEvent}></button>
                 </div>
             </Modal>
-            <div className='monthName'>
-                {props.month}
-            </div>
+
             <div>
                 <table>
                     <tbody>
@@ -91,6 +87,7 @@ const CreateMonth = (props) => {
                               year={props.year}
                               activeDate={props.activeDate}
                               allEvent={props.allEvent}
+                              todayDate={props.todayDate}
                     />
                     </tbody>
                 </table>
@@ -99,5 +96,6 @@ const CreateMonth = (props) => {
     )
 
 }
+
 
 export {CreateMonth}

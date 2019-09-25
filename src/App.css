@@ -1,61 +1,56 @@
+body{
+  background: url('./components/Header/Style/Img/backgrnd.jpg');
 
-.body {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  text-align: center
-  }
-
+}
 #root {
   position: relative;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  text-align: center
+  text-align: center;
+  padding: 20px;
+  font-family: Garuda;
+
 }
 
 .bigCalendar{
+  max-width: 1200px;
   border: 2px solid black ;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
   align-content: space-around;
-  padding: 0 5px;
+  padding: 0;
 }
 
-.oneMonth{
+.oneMonthInto{
   flex-direction: column;
   width: auto;
   height: auto;
   /*border: 1px solid black ;*/
   text-align: center;
-  padding: 8px 0 ;
+  padding: 8px ;
+  margin: 7px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Параметры тени */
+  border-radius: 5px;
+
 
 }
 
 .mainStyle{
   height: auto;
   border: 2px solid black ;
-  display: flex;
   text-align: center;
-  padding: 20px;
-}
 
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: baseline;}
 
-tr {
-
-}
-
-
-
-.weekDay {
-  background-color: darkgray;
-}
 
 .changeYear {
   width: auto;
@@ -63,9 +58,38 @@ tr {
 }
 
 .invisible {
-  border: 1px solid white;
+  /*border: 1px solid white;*/
 }
 .invisible:hover {
-  border: 1px solid white;
-  background-color: white;
+  /*border: 1px solid white;*/
+  /*background-color: white;*/
+}
+
+:focus {
+  outline-style: none;
+  outline-width: 0px !important;
+  outline-color: none !important;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #e2dddd;
+font-size: 10px;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #0d0d0d;
+  font-size: 5px;}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #0d0d0d;
+  font-size: 5px;}
+:-moz-placeholder { /* Firefox 18- */
+  color: #0d0d0d;
+  font-size: 5px;}
+
+footer {
+padding: 10px;
+}
+footer a {
+  text-decoration: none;
+  color: white;
+  font-size: 12px;
 }

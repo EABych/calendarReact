@@ -6,11 +6,15 @@ import './Year.css'
 function MakeMonthList(props) {
     return props.arrNameOfDay.map((item , i ) => {
         return (
-            <div className='oneMonth' data-value={item}  key={i}>
+            <div className='oneMonthInto' data-value={item}  key={i}>
                 <CreateMonth newArr={props.newArr[item]}
                              month={item}
                              clickForViewMonth={props.clickForViewMonth}
                              toggleModal={props.toggleModal}
+                             allEvent={props.allEvent}
+                             year={props.year}
+                             todayDate={props.todayDate}
+
                 />
             </div>
         )
@@ -38,6 +42,10 @@ const CreatYear = (props) => {
                            clickForViewMonth={props.clickForViewMonth}
                            toggleModal={props.toggleModal}
                            arrNameOfDay={arrNameOfDay}
+                           allEvent={props.allEvent}
+                           year={props.year}
+                           todayDate={props.todayDate}
+
             />
         </div>
     )

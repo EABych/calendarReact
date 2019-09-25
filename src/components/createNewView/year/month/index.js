@@ -10,7 +10,18 @@ function MakeTitleWeek(props) {
 
 function MakeWeek(props) {
     return props.arrQuantityOfDay.map((item) => {
-        return <CreatOneWeek i={item} newArr={props.newArr} month={props.month} onClick={props.onClick} key={item}/>
+        return <CreatOneWeek
+            i={item}
+            newArr={props.newArr}
+            month={props.month}
+            onClick={props.onClick}
+            key={item}
+            allEvent={props.allEvent}
+            year={props.year}
+            todayDate={props.todayDate}
+
+        />
+
     })
 }
 
@@ -22,8 +33,8 @@ const CreateMonth = (props) => {
 
     return (
         <div className='oneMonth'>
-            <div className='monthName' onClick={props.clickForViewMonth}>
-                {props.month}
+            <div className={`monthName ${props.month}`} onClick={props.clickForViewMonth}>
+
             </div>
             <div >
                 <table>
@@ -31,8 +42,15 @@ const CreateMonth = (props) => {
                     <tr>
                         <MakeTitleWeek arrNameOfDay={arrNameOfDay}/>
                     </tr>
-                    <MakeWeek arrQuantityOfDay={arrQuantityOfDay} newArr={props.newArr} month={props.month}
-                              onClick={props.toggleModal}/>
+                    <MakeWeek arrQuantityOfDay={arrQuantityOfDay}
+                              newArr={props.newArr}
+                              month={props.month}
+                              onClick={props.toggleModal}
+                              allEvent={props.allEvent}
+                              year={props.year}
+                              todayDate={props.todayDate}
+
+                    />
                     </tbody>
                 </table>
             </div>

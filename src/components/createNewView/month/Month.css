@@ -1,10 +1,31 @@
 .tdStyleMonth {
-    min-width: 190px;
-    height: 20%;
+    min-width: 165px;
+    min-height: 200px;
     border: 1px solid black;
     font-size: 16px;
     border-radius: 2px;
+
 }
 .tdStyleMonth:hover {
     background-color: rgba(229, 229, 229);
+}
+
+.oneMonth{
+    max-width: 1200px;
+
+}
+.eventListEvery_ul {
+    padding: 0;
+    list-style-type: none;
+    text-align: left;
+    font-size: 12px;
+max-width: 140px;
+}
+.eventList_li{
+    padding: 0;
+    max-width: 150px;
+
+}
+.weekDay {
+
 }

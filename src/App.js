@@ -8,11 +8,19 @@ import Header from './components/Header'
 class Home extends React.Component {
     constructor(props) {
         super(props);
-        const year = new Date().getFullYear();
-        const month = new Date().toLocaleString('default', {month: 'long'});
-        const day = new Date().getDate();
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.toLocaleString('default', {month: 'long'});
+        const day = now.getDate();
+
+
 
         this.state = {
+            todayDate: {
+                year: year,
+                monthName: month,
+                today: day
+            } ,
             year: year,
             monthName: month,
             today: day,
@@ -53,7 +61,22 @@ class Home extends React.Component {
                     title: "222",
                     to: "01:47",
                     year: 2019
-                }
+                },
+                {
+                    from: "01:00",
+                    monthAndDate: "12 November",
+                    text: "111",
+                    title: "111",
+                    to: "01:15",
+                    year: 2019
+                },{
+                    from: "01:00",
+                    monthAndDate: "2 November",
+                    text: "111",
+                    title: "111",
+                    to: "01:15",
+                    year: 2019
+                },
             ],
             firstInputValue: '',
             secondInputValue: '',
@@ -75,36 +98,10 @@ class Home extends React.Component {
         this.changeYearInStateToOne = this.changeYearInStateToOne.bind(this);
         this.changeMonthInStateToOne = this.changeMonthInStateToOne.bind(this);
     }
-
-
     // get start state
     UNSAFE_componentWillMount(year) {
         this.createArrayAllMonth(this.state.year);
     }
-
-    createArrayAllMonth(dataset) {
-        const numberOfDaysInAMonth = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-            .reduce((acc, monthNumber) => {
-                const name = this.getMonthName(dataset, monthNumber, 1);
-                const firstDayOfMonth = new Date(dataset, monthNumber, 1);
-                const lastDayOfMonth = new Date(dataset, monthNumber + 1, 0);
-                const numberOfDaysPerMonth = firstDayOfMonth.getDay();
-
-                acc[name] = new Array(numberOfDaysPerMonth).fill(0);
-                for (let i = 1; i <= lastDayOfMonth.getDate(); i++) {
-                    acc[name].push(i)
-                }
-                return acc;
-            }, {});
-        this.setState({
-            allMonth: numberOfDaysInAMonth,
-        });
-    }
-
-    getMonthName = (year, month, date) => {
-        return new Date(year, month, date).toLocaleString('default', {month: 'long'});
-    };
-
 
     whatRenderNowHeader() {
         if (this.state.activeWindow === 'Year') {
@@ -130,7 +127,6 @@ class Home extends React.Component {
 
         }
     }
-
     whatRenderNowMain() {
         if (this.state.activeWindow === 'Year') {
             return this.createCalendar()
@@ -146,10 +142,10 @@ class Home extends React.Component {
                                 newValueInput={this.newValueInput}
                                 addNewEvent={this.addNewEvent}
                                 activeDate={this.state.activeDate}
+                                todayDate={this.state.todayDate}
             />
         }
     }
-
 
     createCalendar() {
         return (
@@ -157,6 +153,10 @@ class Home extends React.Component {
                 <CreatYear newArr={this.state.allMonth}
                            clickForChangeView={this.clickForChangeView}
                            toggleModal={this.toggleModal}
+                           allEvent={this.state.allEvent}
+                           year={this.state.year}
+                           todayDate={this.state.todayDate}
+
                 />
             </>
         )
@@ -165,93 +165,10 @@ class Home extends React.Component {
     toggleModal = (e) => {
         this.setState({showModal: !this.state.showModal, activeDate: e.target.id})
     };
-
-    doublesTheNumber = (num) => {
-        // const formatter = new Intl.NumberFormat('en', {minimumIntegerDigits: 2, useGrouping: false});
-        return num.toString().length < 2 ? '0' + num.toString() : num.toString();
-    };
-
-    clickForViewMonth(month) {
-        this.setState({monthName: month});
-    }
-
-    clickForChangeYear(e) {
-        if (e.which === 13) {
-            this.createArrayAllMonth(e.target.value);
-            e.target.value = '';
-        }
-    }
-
-    clickForChangeView(data) {
-        this.setState({activeWindow: data})
-    }
-
-    clickForChangeMonth(data) {
-        this.setState({monthName: data})
-    }
-
-    changeYearInStateToOne(sign) {
-        let newYear = this.state.year;
-        if (sign === 'plus') {
-            newYear += 1;
-        } else {
-            newYear -= 1;
-        }
-        this.createArrayAllMonth(newYear);
-        this.setState({year: newYear});
-    }
-
-
-    changeMonthInStateToOne(sign) {
-        let thisYear = this.state.year;
-        let numMonth = new Date('1 ' + this.state.monthName + ' ' + thisYear);
-        numMonth = numMonth.getMonth();
-
-        if (sign === 'plus') {
-            numMonth += 1;
-            if (numMonth === 12) {
-                thisYear += 1;
-            }
-        } else if (sign === 'minus') {
-            numMonth -= 1;
-            if (numMonth === 0) {
-                thisYear -= 1;
-            }
-        }
-        let newMonth = new Date(thisYear, numMonth, 1).toLocaleString('default', {month: 'long'});
-        this.setState({monthName: newMonth, year: thisYear})
-    }
-
-
-    changeYearInStateFinal(year) {
-        if (this.state.activeWindow === 'Year') {
-            this.createArrayAllMonth(year);
-            this.setState({year: parseInt(year)});
-
-        } else {
-            //todo: change month
-        }
-        // if (year) {
-        // this.setState({year: parseInt(year)});
-        // }
-    }
-
-
     newValueInput(e) {
         const {id, value} = e.target;
         this.setState({[id]: value});
     }
-
-    searchesForEventsOnSelectedDate() {
-        let year = this.state.year;
-        let activeDate = this.state.activeDate;
-        let allEvent = this.state.allEvent;
-
-        return allEvent.filter(function (date) {
-            return date.year === year && date.monthAndDate === activeDate;
-        });
-    }
-
     addNewEvent() {
         let firstInputValueOk = this.state.firstInputValue;
         let secondInputValueOk = this.state.secondInputValue;
@@ -306,15 +223,105 @@ class Home extends React.Component {
 
     }
 
+    clickForChangeView(data) {
+        this.setState({activeWindow: data})
+    }
+    clickForViewMonth(month) {
+        this.setState({monthName: month});
+    }
+    clickForChangeYear(e) {
+        if (e.which === 13) {
+            this.createArrayAllMonth(e.target.value);
+            e.target.value = '';
+        }
+    }
+
+    changeYearInStateToOne(sign) {
+        let newYear = this.state.year;
+        if (sign === 'plus') {
+            newYear += 1;
+        } else {
+            newYear -= 1;
+        }
+        this.createArrayAllMonth(newYear);
+        this.setState({year: newYear});
+    }
+    changeMonthInStateToOne(sign) {
+        let thisYear = this.state.year;
+        let numMonth = new Date('1 ' + this.state.monthName + ' ' + thisYear);
+        numMonth = numMonth.getMonth();
+
+        if (sign === 'plus') {
+            numMonth += 1;
+            if (numMonth === 12) {
+                thisYear += 1;
+            }
+        } else if (sign === 'minus') {
+            numMonth -= 1;
+            if (numMonth === 0) {
+                thisYear -= 1;
+            }
+        }
+        let newMonth = new Date(thisYear, numMonth, 1).toLocaleString('default', {month: 'long'});
+        this.setState({monthName: newMonth, year: thisYear})
+    }
+    changeYearInStateFinal(year) {
+        if (this.state.activeWindow === 'Year') {
+            this.createArrayAllMonth(year);
+            this.setState({year: parseInt(year)});
+
+        } else {
+            //todo: change month
+        }
+        // if (year) {
+        // this.setState({year: parseInt(year)});
+        // }
+    }
+
+    doublesTheNumber = (num) => {
+        // const formatter = new Intl.NumberFormat('en', {minimumIntegerDigits: 2, useGrouping: false});
+        return num.toString().length < 2 ? '0' + num.toString() : num.toString();
+    };
+    searchesForEventsOnSelectedDate() {
+        let year = this.state.year;
+        let activeDate = this.state.activeDate;
+        let allEvent = this.state.allEvent;
+
+        return allEvent.filter(function (date) {
+            return date.year === year && date.monthAndDate === activeDate;
+        });
+    }
+    getMonthName = (year, month, date) => {
+        return new Date(year, month, date).toLocaleString('default', {month: 'long'});
+    };
+    createArrayAllMonth(dataset) {
+        const numberOfDaysInAMonth = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+            .reduce((acc, monthNumber) => {
+                const name = this.getMonthName(dataset, monthNumber, 1);
+                const firstDayOfMonth = new Date(dataset, monthNumber, 1);
+                const lastDayOfMonth = new Date(dataset, monthNumber + 1, 0);
+                const numberOfDaysPerMonth = firstDayOfMonth.getDay();
+
+                acc[name] = new Array(numberOfDaysPerMonth).fill(0);
+                for (let i = 1; i <= lastDayOfMonth.getDate(); i++) {
+                    acc[name].push(i)
+                }
+                return acc;
+            }, {});
+        this.setState({
+            allMonth: numberOfDaysInAMonth,
+        });
+    }
+
 
     render() {
-
         return (
             <>
                 {this.whatRenderNowHeader()}
                 {this.whatRenderNowMain()}
-                {/*<CalenderContent /> // different view (year, month) (8h) - more features (16h)*/}
-                {/*<Footer /> // Something. (1h)*/}
+                <footer>
+                    <a href='https://github.com/EABych/calendarReact'>© calendarReact 2019</a>
+                </footer>
             </>
         );
 

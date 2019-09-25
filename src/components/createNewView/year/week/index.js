@@ -10,6 +10,10 @@ function MakeDayList(props) {
                 newArr={props.newArr}
                 month={props.month}
                 onClick={props.onClick}
+                allEvent={props.allEvent}
+                year={props.year}
+                todayDate={props.todayDate}
+
             />
         )
     })
@@ -21,7 +25,16 @@ const CreatOneWeek= (props) => {
     let numberOfDay = [0,1,2,3,4,5,6];
     return (
         <tr>
-        <MakeDayList i={props.i} newArr={props.newArr} month={props.month} onClick={props.onClick} numberOfDay={numberOfDay} />
+        <MakeDayList i={props.i}
+                     newArr={props.newArr}
+                     month={props.month}
+                     onClick={props.onClick}
+                     numberOfDay={numberOfDay}
+                     allEvent={props.allEvent}
+                     year={props.year}
+                     todayDate={props.todayDate}
+
+        />
         </tr>
     )
 

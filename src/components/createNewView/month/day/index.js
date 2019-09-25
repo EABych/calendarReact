@@ -4,12 +4,20 @@ import './day.css'
 
 
 const CreatOneDay = (props) => {
+
+    let isThisDayToday = false;
+
+    if ((props.todayDate.year ===  props.year) && (props.todayDate.monthName === props.month) && (props.todayDate.today === props.newArr[props.number])) {
+        isThisDayToday = true;
+    }
+
     return (
         props.newArr[props.number] ?
             (
                 <td
                     onClick={props.onClick}
-                    className="tdStyleMonth"
+                    className={isThisDayToday? 'today tdStyleMonth' : 'tdStyleMonth'}
+
                     id={`${props.newArr[props.number]} ${props.month}`}
                 >
                     {props.newArr[props.number]}
