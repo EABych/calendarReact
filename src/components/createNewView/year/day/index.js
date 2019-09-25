@@ -6,7 +6,7 @@ const CreatOneDay = (props) => {
             (
                 <td
                     onClick={props.onClick}
-                    className="tdStyle"
+                    className="tdStyleYear"
                     id={`${props.newArr[props.number]} ${props.month}`}
                 >
                     {props.newArr[props.number]}

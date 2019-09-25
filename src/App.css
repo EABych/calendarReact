@@ -50,22 +50,14 @@
 tr {
 
 }
-.tdStyle {
-  width: 30px;
-  height: 20px;
-  border: 1px solid black;
-  font-size: 16px;
-  border-radius: 2px;
-}
-.tdStyle:hover {
-background-color: rgba(229, 229, 229);
-}
+
+
+
 .weekDay {
   background-color: darkgray;
 }
 
 .changeYear {
-
   width: auto;
   height: auto;
 }

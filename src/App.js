@@ -1,12 +1,8 @@
 import React from 'react';
 import './App.css'
-import {Modal} from "./components/createNewView/event/Modal";
-import {OneEventOnList} from './components/createNewView/event/Modal/oneEventOnList'
 import {CreatYear} from './components/createNewView/year'
 import {CreateMonth} from "./components/createNewView/month";
 import Header from './components/Header'
-
-
 
 
 class Home extends React.Component {
@@ -20,7 +16,6 @@ class Home extends React.Component {
             year: year,
             monthName: month,
             today: day,
-            month: [],
             allMonth: {
                 January: [],
                 February: [],
@@ -35,78 +30,56 @@ class Home extends React.Component {
                 November: [],
                 December: [],
             },
-            allEvent: [],
+            allEvent: [{
+                from: "01:00",
+                monthAndDate: "2 September",
+                text: "111",
+                title: "111",
+                to: "01:15",
+                year: 2019
+            },
+                {
+                    from: "01:16",
+                    monthAndDate: "2 September",
+                    text: "222",
+                    title: "222",
+                    to: "01:31",
+                    year: 2019
+                },
+                {
+                    from: "01:32",
+                    monthAndDate: "2 September",
+                    text: "222",
+                    title: "222",
+                    to: "01:47",
+                    year: 2019
+                }
+            ],
             firstInputValue: '',
             secondInputValue: '',
             title: '',
             text: '',
             activeDate: '',
-
             activeWindow: 'Year',
-
             showModal: false
 
         };
         this.clickForViewMonth = this.clickForViewMonth.bind(this);
         this.clickForChangeYear = this.clickForChangeYear.bind(this);
-        this.changeYearInState = this.changeYearInState.bind(this);
         this.newValueInput = this.newValueInput.bind(this);
         this.addNewEvent = this.addNewEvent.bind(this);
-        this.searchesForEventsOnSelectedDate = this.searchesForEventsOnSelectedDate.bind(this);
         this.doublesTheNumber = this.doublesTheNumber.bind(this);
         this.createArrayAllMonth = this.createArrayAllMonth.bind(this);
         this.changeYearInStateFinal = this.changeYearInStateFinal.bind(this);
-        this.clickForChangeView =this.clickForChangeView.bind(this);
+        this.clickForChangeView = this.clickForChangeView.bind(this);
+        this.changeYearInStateToOne = this.changeYearInStateToOne.bind(this);
+        this.changeMonthInStateToOne = this.changeMonthInStateToOne.bind(this);
     }
 
+
+    // get start state
     UNSAFE_componentWillMount(year) {
         this.createArrayAllMonth(this.state.year);
-    }
-
-    createCalendar() {
-        return (
-            <>
-                <Modal open={this.state.showModal} onClose={this.toggleModal}>
-                    <div className=''>
-                        <ul>
-                            {this.outlineListOfEventsForTheSelectedDate()}
-                        </ul>
-                        {this.makeInputForAddTime('from', 'firstInputValue')}
-                        {this.makeInputForAddTime('to', 'secondInputValue')}
-                        {this.makeInputForAddDiscriptionEvent("New event", 'title')}
-                        {this.makeInputForAddDiscriptionEvent("Event description", 'text')}
-                    </div>
-                </Modal>
-
-                {/*<div className='changeYear'>*/}
-                {/*    <p>Add year</p>*/}
-                {/*    <input type="text"*/}
-                {/*           data-value={this.state.year}*/}
-                {/*           onKeyDown={this.clickForChangeYear}*/}
-                {/*           onChange={this.changeYearInState}/>*/}
-
-                {/*</div>*/}
-
-                <CreatYear newArr={this.state.allMonth}
-                           clickForViewMonth={this.clickForViewMonth}
-                           toggleModal={this.toggleModal}
-                />
-            </>
-        )
-    }
-
-
-
-
-    toggleModal = (e) => {
-        this.setState({showModal: !this.state.showModal, activeDate: e.target.id})
-    }
-
-
-    doublesTheNumber = (num) => {
-        console.log('@@@@@@', num);
-        // const formatter = new Intl.NumberFormat('en', {minimumIntegerDigits: 2, useGrouping: false});
-        return num.toString().length < 2 ? '0' + num.toString() : num.toString();
     }
 
     createArrayAllMonth(dataset) {
@@ -127,99 +100,157 @@ class Home extends React.Component {
             allMonth: numberOfDaysInAMonth,
         });
     }
+
     getMonthName = (year, month, date) => {
         return new Date(year, month, date).toLocaleString('default', {month: 'long'});
     };
 
 
-    clickForViewMonth(evt) {
-        const {dataset} = evt.target;
-        this.setState({monthName: dataset.value});
+    whatRenderNowHeader() {
+        if (this.state.activeWindow === 'Year') {
+            return <Header
+                year={this.state.year}
+                month={this.state.monthName}
+                activeWindow={this.state.activeWindow}
+                onClick={this.changeYearInStateFinal}
+                clickForChangeView={this.clickForChangeView}
+                changeYearInStateToOne={this.changeYearInStateToOne}
+            />
+        } else {
+            return <Header
+                year={this.state.year}
+                month={this.state.monthName}
+                activeWindow={this.state.activeWindow}
+                onClick={this.changeYearInStateFinal}
+                clickForChangeView={this.clickForChangeView}
+                clickForViewMonth={this.clickForViewMonth}
+                changeMonthInStateToOne={this.changeMonthInStateToOne}
+
+            />
+
+        }
+    }
+
+    whatRenderNowMain() {
+        if (this.state.activeWindow === 'Year') {
+            return this.createCalendar()
+        } else {
+            return <CreateMonth newArr={this.state.allMonth[this.state.monthName]}
+                                month={this.state.monthName}
+                                clickForViewMonth={this.clickForViewMonth}
+                                toggleModal={this.toggleModal}
+                                showModal={this.state.showModal}
+                                outlineListOfEventsForTheSelectedDate={this.outlineListOfEventsForTheSelectedDate}
+                                allEvent={this.state.allEvent}
+                                year={this.state.year}
+                                newValueInput={this.newValueInput}
+                                addNewEvent={this.addNewEvent}
+                                activeDate={this.state.activeDate}
+            />
+        }
+    }
+
+
+    createCalendar() {
+        return (
+            <>
+                <CreatYear newArr={this.state.allMonth}
+                           clickForChangeView={this.clickForChangeView}
+                           toggleModal={this.toggleModal}
+                />
+            </>
+        )
+    }
+
+    toggleModal = (e) => {
+        this.setState({showModal: !this.state.showModal, activeDate: e.target.id})
+    };
+
+    doublesTheNumber = (num) => {
+        // const formatter = new Intl.NumberFormat('en', {minimumIntegerDigits: 2, useGrouping: false});
+        return num.toString().length < 2 ? '0' + num.toString() : num.toString();
+    };
+
+    clickForViewMonth(month) {
+        this.setState({monthName: month});
     }
 
     clickForChangeYear(e) {
         if (e.which === 13) {
             this.createArrayAllMonth(e.target.value);
-            e.target.value='';
+            e.target.value = '';
         }
     }
 
     clickForChangeView(data) {
-        console.log('@@@@@@',data);
         this.setState({activeWindow: data})
     }
 
-    changeYearInState(e) {
-        if(e) {
-            this.changeYearInStateFinal(e.target.value);
-        }
+    clickForChangeMonth(data) {
+        this.setState({monthName: data})
     }
+
+    changeYearInStateToOne(sign) {
+        let newYear = this.state.year;
+        if (sign === 'plus') {
+            newYear += 1;
+        } else {
+            newYear -= 1;
+        }
+        this.createArrayAllMonth(newYear);
+        this.setState({year: newYear});
+    }
+
+
+    changeMonthInStateToOne(sign) {
+        let thisYear = this.state.year;
+        let numMonth = new Date('1 ' + this.state.monthName + ' ' + thisYear);
+        numMonth = numMonth.getMonth();
+
+        if (sign === 'plus') {
+            numMonth += 1;
+            if (numMonth === 12) {
+                thisYear += 1;
+            }
+        } else if (sign === 'minus') {
+            numMonth -= 1;
+            if (numMonth === 0) {
+                thisYear -= 1;
+            }
+        }
+        let newMonth = new Date(thisYear, numMonth, 1).toLocaleString('default', {month: 'long'});
+        this.setState({monthName: newMonth, year: thisYear})
+    }
+
 
     changeYearInStateFinal(year) {
-        console.log('year', year);
-        this.setState({year: year});
-    }
+        if (this.state.activeWindow === 'Year') {
+            this.createArrayAllMonth(year);
+            this.setState({year: parseInt(year)});
 
-
-
-    makeInputForAddTime(name, numberOfInputValue) {
-        return (
-            <p>{name}
-                <input type="time"
-                       name="selected_time"
-                       list="time-list"
-                       id={numberOfInputValue}
-                       onChange={this.newValueInput}
-                />
-            </p>
-        )
-    }
-    makeInputForAddDiscriptionEvent(defaultValue, id) {
-        return (
-            <input type="text"
-                   defaultValue={defaultValue}
-                   id={id}
-                   onChange={this.newValueInput}/>)
-    }
-
-    searchesForEventsOnSelectedDate() {
-        let year = this.state.year;
-        let activeDate = this.state.activeDate;
-
-        return this.state.allEvent.filter(function (date) {
-            return date.year === year && date.monthAndDate === activeDate;
-        });
-    }
-
-    outlineListOfEventsForTheSelectedDate() {
-        let arrEventsOnSelectedDate = this.searchesForEventsOnSelectedDate();
-        if (arrEventsOnSelectedDate) {
-            return arrEventsOnSelectedDate.map((item) => {
-                return <OneEventOnList item={item} key={item}/>;
-            });
         } else {
-            return [];
+            //todo: change month
         }
+        // if (year) {
+        // this.setState({year: parseInt(year)});
+        // }
     }
-
-
-
 
 
     newValueInput(e) {
         const {id, value} = e.target;
         this.setState({[id]: value});
-        // if (e.target.id === 'firstInputValue') {
-        //     this.setState({firstInputValue: e.target.value})
-        // } else if (e.target.id === 'secondInputValue') {
-        //     this.setState({secondInputValue: e.target.value})
-        // } else if (e.target.id === 'title') {
-        //     this.setState({title: e.target.value})
-        // } else if (e.target.id === 'text') {
-        //     this.setState({text: e.target.value})
-        // }
     }
 
+    searchesForEventsOnSelectedDate() {
+        let year = this.state.year;
+        let activeDate = this.state.activeDate;
+        let allEvent = this.state.allEvent;
+
+        return allEvent.filter(function (date) {
+            return date.year === year && date.monthAndDate === activeDate;
+        });
+    }
 
     addNewEvent() {
         let firstInputValueOk = this.state.firstInputValue;
@@ -238,9 +269,6 @@ class Home extends React.Component {
         let eventOverlayCheck = this.searchesForEventsOnSelectedDate().every(function (eventTime) {
             return firstInputValueOk > eventTime.to || secondInputValueOk < eventTime.from
         });
-
-        console.log('secondInputValueOk', firstTimePlusFifteen, secondInputValueOk);
-
 
         if (!firstInputValueOk || !secondInputValueOk) {
             alert('error: add time')
@@ -274,6 +302,8 @@ class Home extends React.Component {
             alert('error: event intersects with an existing one')
         }
 
+        console.log('@@@@@@', this.state.allEvent);
+
     }
 
 
@@ -281,13 +311,8 @@ class Home extends React.Component {
 
         return (
             <>
-
-                <Header data={this.state.activeWindow} onClick={this.changeYearInStateFinal} clickForChangeView={this.clickForChangeView}/>
-                {this.state.activeWindow==='Year' ? <div>{this.createCalendar()}</div> : <div><CreateMonth newArr={this.state.allMonth[this.state.monthName]}
-                                                                                                           month={this.state.monthName}
-                                                                                                           clickForViewMonth={this.clickForViewMonth}
-                                                                                                           toggleModal={this.toggleModal}/></div>}
-
+                {this.whatRenderNowHeader()}
+                {this.whatRenderNowMain()}
                 {/*<CalenderContent /> // different view (year, month) (8h) - more features (16h)*/}
                 {/*<Footer /> // Something. (1h)*/}
             </>

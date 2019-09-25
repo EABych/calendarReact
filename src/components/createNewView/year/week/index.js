@@ -1,6 +1,5 @@
-import {CreatOneDay} from "../day";
+import {CreatOneDay} from "./../day";
 import React from "react";
-import {CreateMonth} from "../month";
 
 
 function MakeDayList(props) {

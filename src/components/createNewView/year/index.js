@@ -1,6 +1,6 @@
-import {CreateMonth} from "../month";
+import {CreateMonth} from "./month";
 import React from "react";
-import {CreatOneWeek} from "../week";
+import './Year.css'
 
 
 function MakeMonthList(props) {
