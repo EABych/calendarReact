@@ -1,20 +1,16 @@
 import React from 'react';
 
 const CreatOneDay = (props) => {
-
-
-    console.log('@@@@@@',props.year);
     let isThereAnEvent = 0;
-
     props.allEvent.map(function (item) {
         if ((item.monthAndDate === `${props.newArr[props.number]} ${props.month}`) && props.year === item.year) {
-            isThereAnEvent += 1;
+            return isThereAnEvent += 1;
         }
     });
-
     let isThisDayToday = false;
-
-    if ((props.todayDate.year ===  props.year) && (props.todayDate.monthName === props.month) && (props.todayDate.today === props.newArr[props.number])) {
+    if ((props.todayDate.year === props.year) &&
+        (props.todayDate.monthName === props.month) &&
+        (props.todayDate.today === props.newArr[props.number])) {
         isThisDayToday = true;
     }
     let classNameTd = '';
@@ -28,21 +24,15 @@ const CreatOneDay = (props) => {
         classNameTd = 'tdStyleYear'
     }
 
-
-
     return (
         props.newArr[props.number] ?
-            (
-                <td
-                    id={`${props.newArr[props.number]} ${props.month}`}
-                    className={classNameTd}
-                    data-tooltip={isThereAnEvent? `${isThereAnEvent} events in this day` : null}
-                >
-                    {props.newArr[props.number]}
-                </td>
-            ) : (
-                <td className="tdStyle invisible" id="0"/>
-            )
+            (<td
+                id={`${props.newArr[props.number]} ${props.month}`}
+                className={classNameTd}
+                data-tooltip={isThereAnEvent ? `${isThereAnEvent} events in this day` : null}
+            >
+                {props.newArr[props.number]}
+            </td>) : (<td className="tdStyle invisible" id="0"/>)
     )
 };
 

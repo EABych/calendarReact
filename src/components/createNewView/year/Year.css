@@ -1,11 +1,39 @@
-
-.bigCalendar {
-    background-color: rgba(255, 255, 255, 0.93);
-    box-shadow: 0px 0px 100px 100px #68686840 inset;
-
+.mainStyle{
+    height: auto;
+    border: 2px solid black ;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: baseline;
 }
 
-.oneMonth {
+.bigCalendar{
+    max-width: 1200px;
+    border: 2px solid black ;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: space-around;
+    padding: 0;
+    background-color: rgba(255, 255, 255, 0.93);
+    box-shadow: 0px 0px 100px 100px #68686840 inset;
+}
+
+.bigCalendar .oneMonthInto{
+    flex-direction: column;
+    width: auto;
+    height: auto;
+    text-align: center;
+    padding: 8px ;
+    margin: 7px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Параметры тени */
+    border-radius: 5px;
+}
+
+.bigCalendar .oneMonthInto .oneMonthIntoYear {
     background-color: rgb(255, 255, 255);
     min-width: 210px;
     min-height: 250px;
@@ -17,15 +45,23 @@
     margin: 1px;
 }
 
-.monthName {
+.bigCalendar .oneMonthInto .oneMonthIntoYear .monthName {
     background: url('./img/b.jpg') no-repeat;
     background-size: 300px;
     width: 150px;
     height: 60px;
 }
 
+.bigCalendar .oneMonthInto .oneMonthIntoYear .weekDay {
+    background-color: rgba(104, 64, 68, 0.47);
+    font-size: 10px;
+    box-shadow: 0 0 10px #9b7270; /* Параметры тени */
+    border-radius: 2px;
+    border: 1px solid rgba(53, 14, 18, 0.18);
+    color: #401114;
+}
 
-.tdStyleYear {
+.bigCalendar .oneMonthInto .oneMonthIntoYear .tdStyleYear {
     width: 20px;
     height: 20px;
     border: 1px solid #dad2ca;
@@ -33,27 +69,12 @@
     border-radius: 2px;
     background-color: rgb(255, 255, 255);
     box-shadow: 0 0 10px #9b9b9b; /* Параметры тени */
-
+}
+.bigCalendar .oneMonthInto .oneMonthIntoYear .tdStyleYear:hover {
+    background-color: rgba(229, 229, 229, 1);
 }
 
-.tdStyleYear:hover {
-    background-color: rgba(229, 229, 229);
-}
-
-.weekDay {
-    background-color: rgba(104, 64, 68, 0.47);
-    font-size: 10px;
-    box-shadow: 0 0 10px #9b7270; /* Параметры тени */
-    border-radius: 2px;
-    border: 1px solid rgba(53, 14, 18, 0.18);
-color: 401114;
-}
-
-.weekDay {
-
-}
-
-.red {
+.bigCalendar .oneMonthInto .oneMonthIntoYear .red {
     background-color: #c08c8b;
     position: relative;
     border: 1px solid #600505;
@@ -62,16 +83,75 @@ color: 401114;
 
 
 }
-
-.red:hover {
+.bigCalendar .oneMonthInto .oneMonthIntoYear .red:hover {
     background-color: #af6d6c;
 }
 
+.bigCalendar .oneMonthInto .oneMonthIntoYear .today {
+    border-radius: 10px;
+    box-shadow: 0px 0px 13px -5px #357e61 inset;
+    background-color: rgba(143, 212, 193, 0.46);
+}
+
+.bigCalendar .oneMonthInto .oneMonthIntoYear .monthName.January {
+    background-position: -10px -10px;
+}
+.bigCalendar .oneMonthInto .oneMonthIntoYear .monthName.February {
+    background-position: -145px -10px;
+}
+.bigCalendar .oneMonthInto .oneMonthIntoYear .monthName.March {
+    background-position: -10px -65px;
+    width: 110px;
+}
+.bigCalendar .oneMonthInto .oneMonthIntoYear .monthName.April {
+    background-position: -115px -65px;
+    width: 100px;
+
+}
+.bigCalendar .oneMonthInto .oneMonthIntoYear .monthName.May {
+    background-position: -210px -65px;
+    width: 80px;
+
+}
+.bigCalendar .oneMonthInto .oneMonthIntoYear .monthName.June {
+    background-position: -10px -120px;
+    width: 95px;
+
+}
+.bigCalendar .oneMonthInto .oneMonthIntoYear .monthName.July {
+    background-position: -105px -125px;
+    width: 75px;
+
+}
+.bigCalendar .oneMonthInto .oneMonthIntoYear .monthName.August {
+    background-position: -180px -125px;
+    width: 102px;
+
+}
+.bigCalendar .oneMonthInto .oneMonthIntoYear .monthName.September {
+    background-position: -20px -184px;
+    width: 140px;
+
+}
+.bigCalendar .oneMonthInto .oneMonthIntoYear .monthName.October {
+    background-position: -170px -181px;
+    width: 110px;
+
+}
+.bigCalendar .oneMonthInto .oneMonthIntoYear .monthName.November {
+    background-position: -10px -235px;
+    width: 140px;
+
+}
+.bigCalendar .oneMonthInto .oneMonthIntoYear .monthName.December {
+    background-position: -160px -235px;
+    width: 125px;
+
+}
 
 [data-tooltip] {
     position: relative; /* Относительное позиционирование */
 }
-
 [data-tooltip]::after {
     content: attr(data-tooltip); /* Выводим текст */
     position: absolute; /* Абсолютное позиционирование */
@@ -87,7 +167,6 @@ color: 401114;
     transition: .3s; /* Время появления подсказки */
 
 }
-
 [data-tooltip]:hover::after {
     opacity: 1; /* Показываем подсказку */
     top: -3em; /* Положение подсказки */
@@ -95,79 +174,5 @@ color: 401114;
     border-radius: 10px;
     border: 2px solid #46413c;
 
-
-}
-
-.today {
-    border-radius: 10px;
-    box-shadow: 0px 0px 13px -5px #357e61 inset;
-    background-color: rgba(143, 212, 193, 0.46);
-}
-
-
-.January {
-    background-position: -10px -10px;
-}
-
-.February {
-    background-position: -145px -10px;
-}
-
-.March {
-    background-position: -10px -65px;
-    width: 110px;
-}
-
-.April {
-    background-position: -115px -65px;
-    width: 100px;
-
-}
-
-.May {
-    background-position: -210px -65px;
-    width: 80px;
-
-}
-
-.June {
-    background-position: -10px -120px;
-    width: 95px;
-
-}
-
-.July {
-    background-position: -105px -125px;
-    width: 75px;
-
-}
-
-.August {
-    background-position: -180px -125px;
-    width: 102px;
-
-}
-
-.September {
-    background-position: -20px -184px;
-    width: 140px;
-
-}
-
-.October {
-    background-position: -170px -181px;
-    width: 110px;
-
-}
-
-.November {
-    background-position: -10px -235px;
-    width: 140px;
-
-}
-
-.December {
-    background-position: -160px -235px;
-    width: 125px;
 
 }

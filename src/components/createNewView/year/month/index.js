@@ -32,11 +32,14 @@ const CreateMonth = (props) => {
     const arrQuantityOfDay = [0, 7, 14, 21, 28, 35];
 
     return (
-        <div className='oneMonth'>
-            <div className={`monthName ${props.month}`} onClick={props.clickForViewMonth}>
+        <div className='oneMonthIntoYear'>
+            <div className={`monthName ${props.month}`}
+                 onClick={(e) => {
+                     props.clickForChangeView('Month', e.target.className.substring(10))
+                 }}>
 
             </div>
-            <div >
+            <div>
                 <table>
                     <tbody>
                     <tr>

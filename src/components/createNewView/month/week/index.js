@@ -14,6 +14,7 @@ function MakeDayList(props) {
                 activeDate={props.activeDate}
                 allEvent={props.allEvent}
                 todayDate={props.todayDate}
+                newValueInput={props.newValueInput}
             />
         )
     })
@@ -34,6 +35,7 @@ const CreatOneWeek= (props) => {
                      activeDate={props.activeDate}
                      allEvent={props.allEvent}
                      todayDate={props.todayDate}
+                     newValueInput={props.newValueInput}
         />
         </tr>
     )

@@ -7,9 +7,10 @@ import {OutlineListOfEventsForTheSelectedDate} from './event/Modal/outlineListOf
 
 function MakeTitleWeek(props) {
     return props.arrNameOfDay.map((item) => {
-        return <td className='tdStyle weekDay' key={item}>{item}</td>
+        return <td className='tdStyle weekDayOnMonth' key={item}>{item}</td>
     })
 }
+
 function MakeWeek(props) {
     return props.arrQuantityOfDay.map((item) => {
         return <CreatOneWeek i={item}
@@ -21,56 +22,66 @@ function MakeWeek(props) {
                              activeDate={props.activeDate}
                              allEvent={props.allEvent}
                              todayDate={props.todayDate}
+                             newValueInput={props.newValueInput}
         />
     })
 }
+
 function MakeInputForAddTime(props) {
     return (
-        <p>{props.name}
+        <div className='divForPAndInput'>
+            <p>{props.name}
+            </p>
             <input type="time"
                    name="selected_time"
                    list="time-list"
                    id={props.numberOfInputValue}
                    onChange={props.newValueInput}
             />
-        </p>
+        </div>
+
     )
 }
+
 function MakeInputForAddDiscriptionEvent(props) {
     return (
-        <input type="text"
-               defaultValue={props.defaultValue}
-               id={props.id}
-               onChange={props.newValueInput}/>)
+        <div className='divForPAndInput'>
+            <p>{props.defaultValue}</p>
+
+            <input type="text"
+                                      id={props.id}
+                   onChange={props.newValueInput}/>
+        </div>
+    )
 }
 
 
 const CreateMonth = (props) => {
-    const arrNameOfDay = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const arrNameOfDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const arrQuantityOfDay = [0, 7, 14, 21, 28, 35];
 
     return (
         <div className='oneMonth'>
             <Modal open={props.showModal} onClose={props.toggleModal}>
-                <div className=''>
+                <div className='modalInput'>
                     <ul>
                         <OutlineListOfEventsForTheSelectedDate
                             year={props.year}
                             activeDate={props.activeDate}
                             allEvent={props.allEvent}
-
                             forWhat='modalWindow'
+                            deleteEvent={props.deleteEvent}
                         />
                     </ul>
-                    <MakeInputForAddTime name='from' numberOfInputValue='firstInputValue'
+                    <MakeInputForAddTime name='From:' numberOfInputValue='firstInputValue'
                                          newValueInput={props.newValueInput}/>
-                    <MakeInputForAddTime name='to' numberOfInputValue='secondInputValue'
+                    <MakeInputForAddTime name='To:' numberOfInputValue='secondInputValue'
                                          newValueInput={props.newValueInput}/>
-                    <MakeInputForAddDiscriptionEvent defaultValue='New event' id='title'
+                    <MakeInputForAddDiscriptionEvent defaultValue='New event (title):' id='title'
                                                      newValueInput={props.newValueInput}/>
-                    <MakeInputForAddDiscriptionEvent defaultValue='Event description' id='text'
+                    <MakeInputForAddDiscriptionEvent defaultValue='Event description:' id='text'
                                                      newValueInput={props.newValueInput}/>
-                                                     <button onClick={props.addNewEvent}></button>
+                    <button onClick={props.addNewEvent} class='buttonAddNewEvent' >Add</button>
                 </div>
             </Modal>
 
@@ -88,6 +99,7 @@ const CreateMonth = (props) => {
                               activeDate={props.activeDate}
                               allEvent={props.allEvent}
                               todayDate={props.todayDate}
+                              newValueInput={props.newValueInput}
                     />
                     </tbody>
                 </table>

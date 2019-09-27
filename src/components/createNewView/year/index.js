@@ -2,11 +2,10 @@ import {CreateMonth} from "./month";
 import React from "react";
 import './Year.css'
 
-
 function MakeMonthList(props) {
-    return props.arrNameOfDay.map((item , i ) => {
+    return props.arrNameOfDay.map((item, i) => {
         return (
-            <div className='oneMonthInto' data-value={item}  key={i}>
+            <div className='oneMonthInto' data-value={item} key={i}>
                 <CreateMonth newArr={props.newArr[item]}
                              month={item}
                              clickForViewMonth={props.clickForViewMonth}
@@ -14,7 +13,7 @@ function MakeMonthList(props) {
                              allEvent={props.allEvent}
                              year={props.year}
                              todayDate={props.todayDate}
-
+                             clickForChangeView={props.clickForChangeView}
                 />
             </div>
         )
@@ -37,7 +36,7 @@ const CreatYear = (props) => {
         'December'
     ];
     return (
-        <div className='bigCalendar mainStyle' >
+        <div className='bigCalendar mainStyle'>
             <MakeMonthList newArr={props.newArr}
                            clickForViewMonth={props.clickForViewMonth}
                            toggleModal={props.toggleModal}
@@ -45,6 +44,7 @@ const CreatYear = (props) => {
                            allEvent={props.allEvent}
                            year={props.year}
                            todayDate={props.todayDate}
+                           clickForChangeView={props.clickForChangeView}
 
             />
         </div>
