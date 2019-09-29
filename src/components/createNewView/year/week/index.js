@@ -3,6 +3,7 @@ import React from "react";
 
 
 function MakeDayList(props) {
+
     return props.numberOfDay.map((item) => {
         return (
             <CreatOneDay
@@ -22,6 +23,7 @@ function MakeDayList(props) {
 
 
 const CreatOneWeek= (props) => {
+
     let numberOfDay = [0,1,2,3,4,5,6];
     return (
         <tr>

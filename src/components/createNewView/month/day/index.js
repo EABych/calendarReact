@@ -3,6 +3,9 @@ import {OutlineListOfEventsForTheSelectedDate} from './../event/Modal/outlineLis
 
 const CreatOneDay = (props) => {
     let isThisDayToday = false;
+
+console.log(props)
+
     if ((props.todayDate.year === props.year) && (props.todayDate.monthName === props.month) && (props.todayDate.today === props.newArr[props.number])) {
         isThisDayToday = true;
     }

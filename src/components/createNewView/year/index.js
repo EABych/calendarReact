@@ -4,6 +4,7 @@ import './Year.css'
 
 function MakeMonthList(props) {
     return props.arrNameOfDay.map((item, i) => {
+
         return (
             <div className='oneMonthInto' data-value={item} key={i}>
                 <CreateMonth newArr={props.newArr[item]}
@@ -35,6 +36,8 @@ const CreatYear = (props) => {
         'November',
         'December'
     ];
+
+
     return (
         <div className='bigCalendar mainStyle'>
             <MakeMonthList newArr={props.newArr}

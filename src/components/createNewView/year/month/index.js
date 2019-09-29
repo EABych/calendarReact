@@ -31,7 +31,7 @@ const CreateMonth = (props) => {
     const arrNameOfDay = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const arrQuantityOfDay = [0, 7, 14, 21, 28, 35];
 
-    return (
+        return (
         <div className='oneMonthIntoYear'>
             <div className={`monthName ${props.month}`}
                  onClick={(e) => {

@@ -14,7 +14,10 @@ const Header = (props) => {
         })
     };
     const ChangeMonth = (e) => {
-        props.clickForViewMonth(e.target.value)
+        if (e.target.value !== 'none') {
+                props.clickForViewMonth(e.target.value)
+            }
+
     };
     const onKeyUp = (e) => {
         if (e.which === 13) {
@@ -23,9 +26,11 @@ const Header = (props) => {
         }
     };
     const changeYearInStateToOne = (e) => {
+        
         props.changeYearInStateToOne(e.target.value);
     };
     const changeMonthInStateToOne = (e) => {
+        console.log('first', props.year)
         props.changeMonthInStateToOne(e.target.value);
     };
     const InputExampleInput = () => <input
@@ -38,6 +43,7 @@ const Header = (props) => {
     />;
     const InputExampleMonth = () =>
         <select id="select_month" onChange={ChangeMonth}>
+            <option value='none'>none</option>
             <OptionMonth/>
         </select>;
 
