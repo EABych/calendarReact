@@ -1,4 +1,4 @@
-import * as Constants from './../constants'
+import * as Constants from '../../constants'
 import doublesTheNumber from './doublesTheNumber';
 import searchesForEventsOnSelectedDate from './searchesForEventsOnSelectedDate';
 
@@ -11,6 +11,7 @@ export default function validationNewEvent(firstInputValue,
     allEvent,
     title,
     text) {
+
     // helper variables for comparing time
     let firstTime = "01/01/2000 " + firstInputValue;
     let firstTimePlusFifteen = new Date(new Date(firstTime).getTime() + (Constants.MINIMUMEVENTTIMELENGTH * 60 * 1000));
@@ -18,8 +19,10 @@ export default function validationNewEvent(firstInputValue,
     const minutes = doublesTheNumber(firstTimePlusFifteen.getMinutes());
     firstTimePlusFifteen = hours.toString() + ':' + minutes.toString();
     let eventOverlayCheck = searchesForEventsOnSelectedDate(year, activeDate, allEvent).every(function (eventTime) {
+        console.log('@@@@@@',firstInputValue, eventTime.to , secondInputValue , eventTime.from);
         return firstInputValue > eventTime.to || secondInputValue < eventTime.from
     });
+
 
     let objResponse = {};
 
@@ -33,7 +36,7 @@ export default function validationNewEvent(firstInputValue,
         alert('error: minimum event duration 15 minutes');
         return objResponse; 
     } else if (eventOverlayCheck) {
-        return objResponse = {
+        return {
             year: year,
             monthAndDate: activeDate,
             from: firstInputValue,

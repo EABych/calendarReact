@@ -1,11 +1,9 @@
 import React from 'react';
 import {OutlineListOfEventsForTheSelectedDate} from './../event/Modal/outlineListOfEventsForTheSelectedDate'
+import PropTypes from "prop-types";
 
 const CreatOneDay = (props) => {
     let isThisDayToday = false;
-
-console.log(props)
-
     if ((props.todayDate.year === props.year) && (props.todayDate.monthName === props.month) && (props.todayDate.today === props.newArr[props.number])) {
         isThisDayToday = true;
     }
@@ -29,5 +27,20 @@ console.log(props)
             ) : (<td className="tdStyle invisible" id="0"/>)
     )
 };
+
+CreatOneDay.propTypes = {
+    number: PropTypes.array.isRequired,
+    newArr: PropTypes.array.isRequired,
+    month: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
+    allEvent: PropTypes.object.isRequired,
+    year: PropTypes.number.isRequired,
+    newValueInput: PropTypes.func.isRequired,
+    activeDate: PropTypes.string.isRequired,
+    todayDate: PropTypes.object.isRequired,
+};
+
+CreatOneDay.defaultProps = {};
+
 
 export {CreatOneDay};

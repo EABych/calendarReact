@@ -1,6 +1,11 @@
 import React from 'react';
 
+
 const OneEventOnList = (props) => {
+    let haveRedBackground = false;
+    if (props.afterEditEvent) {
+        haveRedBackground = props.afterEditEvent._id === props.item._id;
+    }
 
     return (
         <li id={props.item.monthAndDate} className='eventList_li'>
@@ -16,24 +21,33 @@ const OneEventOnList = (props) => {
                 : null}
 
             {props.forWhat === 'modalWindow' ?
-                <ul className='eventListEvery_ulModal' id={props.item.monthAndDate}>
-                    <input type="time" className='eventListEvery_li' id={`www`} value={props.item.from}>
+                <ul className='eventListEvery_ulModal'
+                    id={props.item.monthAndDate}>
+                    <input type="time"
+                           readOnly
+                           className={haveRedBackground ? 'eventListEvery_li redBackground' : 'eventListEvery_li'}
+                           value={props.item.from}>
                     </input>
-                    < input type="time" className='eventListEvery_li' value={props.item.to}>
+                    < input type="time"
+                            readOnly
+                            className={haveRedBackground ? 'eventListEvery_li redBackground' : 'eventListEvery_li'}
+                            value={props.item.to}>
                     </input>
-                    <input className='eventListEvery_li' value={props.item.title}>
+                    <input readOnly
+                           className={haveRedBackground ? 'eventListEvery_li redBackground' : 'eventListEvery_li'}
+                           value={props.item.title}>
                     </input>
-                    <input className='eventListEvery_li' value={props.item.text}>
+                    <input readOnly
+                           className={haveRedBackground ? 'eventListEvery_li redBackground' : 'eventListEvery_li'}
+                           value={props.item.text}>
                     </input>
-
                     <button className='deleteButton' id={props.item._id} onClick={(e) => {
-                        props.deleteEvent(e.target.id)
-                    }}>delete
+                        props.editEvent(e.target.id)
+                    }}>edit
                     </button>
                 </ul>
                 : null}
         </li>
-
     )
 };
 

@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from "prop-types";
 
 const CreatOneDay = (props) => {
     let isThereAnEvent = 0;
-    props.allEvent.map(function (item) {
+    props.allEvent.map((item) => {
         if ((item.monthAndDate === `${props.newArr[props.number]} ${props.month}`) && props.year === item.year) {
             return isThereAnEvent += 1;
         }
@@ -35,5 +36,19 @@ const CreatOneDay = (props) => {
             </td>) : (<td className="tdStyle invisible" id="0"/>)
     )
 };
+
+CreatOneDay.propTypes = {
+    number: PropTypes.number.isRequired,
+    newArr: PropTypes.array.isRequired,
+    month: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
+    allEvent: PropTypes.object.isRequired,
+    year: PropTypes.number.isRequired,
+    todayDate: PropTypes.object.isRequired,
+};
+
+CreatOneDay.defaultProps = {};
+
+
 
 export {CreatOneDay};

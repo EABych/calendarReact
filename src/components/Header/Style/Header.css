@@ -118,7 +118,7 @@ select::-ms-expand {
 }
 
 .main_container .left_container #inputYear {
-    margin-top: 8px;
+    margin: 0;
     font-family: Garuda;
     font-size: 20px;
     color: #0d0d0d;

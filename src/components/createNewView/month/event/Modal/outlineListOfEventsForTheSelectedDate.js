@@ -7,26 +7,25 @@ function searchesForEventsOnSelectedDate(year, day, allEvent) {
     });
 }
 
-
-
-
-
 const OutlineListOfEventsForTheSelectedDate = (props) => {
-    if (props.forWhat === 'modalWindow') {
-        console.log('@@@@@@',props);
-    }
-
     if (props.forWhat === 'modalWindow') {
         let arrEventsOnSelectedDate = searchesForEventsOnSelectedDate(props.year, props.activeDate, props.allEvent);
         arrEventsOnSelectedDate.sort((a, b) => (a.from > b.from) ? 1 : ((b.from > a.from) ? -1 : 0));
-
         if (arrEventsOnSelectedDate) {
-            console.log('arrEventsOnSelectedDate',arrEventsOnSelectedDate);
+
+
             let arr = arrEventsOnSelectedDate.map((item) => {
-                return <OneEventOnList item={item} forWhat={props.forWhat}  newValueInput={props.newValueInput} arrEventsOnSelectedDate={arrEventsOnSelectedDate} deleteEvent = {props.deleteEvent}
+                return <OneEventOnList item={item}
+                                       forWhat={props.forWhat}
+                                       newValueInput={props.newValueInput}
+                                       arrEventsOnSelectedDate={arrEventsOnSelectedDate}
+                                       deleteEvent = {props.deleteEvent}
+                                       showModalEditEvent={props.showModalEditEvent}
+                                       afterEditEvent={props.afterEditEvent}
+                                       editEvent={props.editEvent}
+
                 />;
             });
-            arr.push(<p className='titleAddNewEvent'> Add new event </p>);
             return arr;
         } else {
             return [];
@@ -34,7 +33,6 @@ const OutlineListOfEventsForTheSelectedDate = (props) => {
     } else if (props.forWhat === 'day') {
         let arrEventsOnSelectedDate = searchesForEventsOnSelectedDate(props.year, props.day, props.allEvent);
         arrEventsOnSelectedDate.sort((a, b) => (a.from > b.from) ? 1 : ((b.from > a.from) ? -1 : 0));
-
         if (arrEventsOnSelectedDate) {
             if (arrEventsOnSelectedDate.length > 3) {
                 arrEventsOnSelectedDate.splice(3);

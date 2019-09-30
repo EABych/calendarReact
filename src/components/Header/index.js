@@ -1,9 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import './Style/Header.css';
 
-
 const Header = (props) => {
-
     const ChangeView = (e) => {
         props.clickForChangeView(e.target.value)
     };
@@ -15,9 +14,8 @@ const Header = (props) => {
     };
     const ChangeMonth = (e) => {
         if (e.target.value !== 'none') {
-                props.clickForViewMonth(e.target.value)
-            }
-
+            props.clickForViewMonth(e.target.value)
+        }
     };
     const onKeyUp = (e) => {
         if (e.which === 13) {
@@ -26,11 +24,9 @@ const Header = (props) => {
         }
     };
     const changeYearInStateToOne = (e) => {
-        
         props.changeYearInStateToOne(e.target.value);
     };
     const changeMonthInStateToOne = (e) => {
-        console.log('first', props.year)
         props.changeMonthInStateToOne(e.target.value);
     };
     const InputExampleInput = () => <input
@@ -76,5 +72,20 @@ const Header = (props) => {
         </div>
     )
 };
+
+Header.propTypes = {
+    year: PropTypes.number.isRequired,
+    month: PropTypes.string.isRequired,
+    activeWindow: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
+    clickForChangeView: PropTypes.func.isRequired,
+    changeYearInStateToOne: PropTypes.func.isRequired,
+    allMonth: PropTypes.object.isRequired,
+    clickForViewMonth: PropTypes.func.isRequired,
+    changeMonthInStateToOne: PropTypes.func.isRequired
+};
+
+Header.defaultProps = {};
+
 
 export default Header;

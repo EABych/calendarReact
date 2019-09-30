@@ -8,7 +8,6 @@
     height: 100%;
     z-index: 998;
     background-color: rgba(0, 0, 0, .7);
-    /*opacity: .5;*/
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -17,19 +16,23 @@
 
 #modal .modal {
     padding: 20px 35px;
-    /*position: relative;*/
-    /*width:50%;*/
     background-color: rgba(209, 197, 192, 0.87);
-    /*z-index: 999;*/
     opacity: 1;
     border-radius: 20px;
-    text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.5), 3px 3px 10px rgba(76, 33, 20, 0.45);
+    text-shadow: 0 3px 3px rgba(255, 255, 255, 0.5), 3px 3px 10px rgba(76, 33, 20, 0.45);
     color: #2b010194;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Параметры тени */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     list-style-type: none;
 }
 
-.modal_close {
+#modal .modal .modalInput {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 300px;
+}
+
+#modal .modal .modal_close {
     text-align: right;
     list-style-type: none;
     display: flex;
@@ -38,55 +41,44 @@
     font-size: 25px;
 }
 
-.modal_close div ul {
+#modal .modal .modal_close div ul {
     margin: 0;
     border: 2px solid black;
     padding: 0;
 }
 
-.modal p {
+#modal .modal p {
     text-align: center;
     font-family: Garuda;
     margin: 5px;
 }
 
-.modal input {
+#modal .modal input {
     border-radius: 5px;
     font-family: Garuda;
     color: #401114;
     margin: 5px;
 }
 
-
-.modalInput {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-width: 300px;
-}
-
-.divForPAndInput {
+#modal .modal .divForPAndInput {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.titleAddNewEvent {
+#modal .modal .titleAddNewEvent {
     background-color: rgba(64, 17, 20, 0.25);
     margin-top: 30px !important;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Параметры тени */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     color: #ffffff;
 }
 
-
-.deleteButton {
+#modal .modal .deleteButton {
     background-color: rgba(64, 17, 20, 0.56);
     text-decoration: none;
     outline: none;
     display: inline-block;
-    /*padding: 15px 30px;*/
-    /*margin: 10px 20px;*/
     border-radius: 10px;
     box-shadow: 0 0 40px 40px #ffffff inset, 0 0 0 0 #684044;
     font-family: 'Montserrat', sans-serif;
@@ -97,12 +89,12 @@
     font-size: 11px;
 }
 
-.deleteButton:hover {
+#modal .modal .deleteButton:hover {
     box-shadow: 0 0 10px 0 #684044 inset, 0 0 10px 4px rgba(104, 64, 68, 0.59);
     color: #ffffff;
 }
 
-.buttonAddNewEvent {
+#modal .modal .buttonAddNewEvent {
     background-color: rgba(64, 17, 20, 0.56);
     height: 50px;
     text-decoration: none;
@@ -120,8 +112,25 @@
     font-size: 14px;
 }
 
-.buttonAddNewEvent:hover {
+#modal .modal .buttonAddNewEvent:hover {
     box-shadow: 0 0 10px 0 #684044 inset, 0 0 10px 4px rgba(104, 64, 68, 0.59);
     color: #ffffff;
     font-size: 16px;
+}
+
+.redFrame {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /*flex-wrap: wrap;*/
+    /*justify-content: space-around;*/
+    align-items: center;
+    margin: 10px 0;
+    border: 2px solid darkred;
+    background-color: rgba(255, 0, 0, 0.18);
+}
+
+.redBackground {
+    border: 2px solid darkred;
+    background-color: rgba(255, 0, 0, 0.18);
 }

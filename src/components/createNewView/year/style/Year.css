@@ -46,7 +46,7 @@
 }
 
 .bigCalendar .oneMonthInto .oneMonthIntoYear .monthName {
-    background: url('./img/b.jpg') no-repeat;
+    background: url('img/b.jpg') no-repeat;
     background-size: 300px;
     width: 150px;
     height: 60px;
