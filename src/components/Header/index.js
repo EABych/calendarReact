@@ -9,7 +9,7 @@ const Header = (props) => {
     const OptionMonth = () => {
         let allMonth = Object.keys(props.allMonth);
         return allMonth.map(function (item) {
-            return <option value={item}>{item}</option>
+            return <option key={'key'+item} value={item}>{item}</option>
         })
     };
     const ChangeMonth = (e) => {
@@ -80,8 +80,8 @@ Header.propTypes = {
     onClick: PropTypes.func.isRequired,
     clickForChangeView: PropTypes.func.isRequired,
     changeYearInStateToOne: PropTypes.func.isRequired,
-    allMonth: PropTypes.object.isRequired,
-    clickForViewMonth: PropTypes.func.isRequired,
+    allMonth: PropTypes.object,
+    clickForViewMonth: PropTypes.func,
     changeMonthInStateToOne: PropTypes.func.isRequired
 };
 

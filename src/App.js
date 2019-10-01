@@ -6,6 +6,7 @@ import Header from './components/Header';
 import * as Constants from './constants'
 import numberOfDaysInAMonthInYear from './components/auxiliary/numberOfDaydInAMonth'
 import validationNewEvent from './components/auxiliary/validationNewEvent'
+import findActiveEvent from './components/auxiliary/findActiveEvent'
 
 class Home extends React.Component {
     constructor(props) {
@@ -21,271 +22,189 @@ class Home extends React.Component {
             today: Constants.DAY,
             allMonth: Constants.ALLMONTH,
             allEvent: Constants.ALLEVENTS,
+
+            activeWindow: 'Year',
+            activeDate: '',
+            activeEvent: Constants.EMPTYOBJECT,
+            afterEditEvent: Constants.EMPTYOBJECT,
+
+
             firstInputValue: '',
             secondInputValue: '',
             title: '',
             text: '',
-            activeDate: '',
-            activeWindow: 'Year',
-            showModal: false,
-            showModalEditEvent: false,
-            afterEditEvent: {
-                monthAndDate: '',
-                text: '',
-                title: '',
-                to: '',
-                year: '',
-                _id: ''
-            },
-            activeEvent: {
-                monthAndDate: '',
-                text: '',
-                title: '',
-                to: '',
-                year: '',
-                _id: ''
-            },
+
             editFirstInputValue: '',
             editSecondInputValue: '',
             editTitle: '',
             editText: '',
+
+            showModal: false,
+            showModalEditEvent: false,
         };
 
-        this.clickForViewMonth = this.clickForViewMonth.bind(this);
-        this.clickForChangeYear = this.clickForChangeYear.bind(this);
-        this.newValueInput = this.newValueInput.bind(this);
+        this.editEvent = this.editEvent.bind(this);
+        this.deleteEvent = this.deleteEvent.bind(this);
         this.addNewEvent = this.addNewEvent.bind(this);
+        this.newValueInput = this.newValueInput.bind(this);
+        this.saveEditEvent = this.saveEditEvent.bind(this);
+        this.cancelEditEvent = this.cancelEditEvent.bind(this);
         this.changeYearInState = this.changeYearInState.bind(this);
+        this.clickForViewMonth = this.clickForViewMonth.bind(this);
         this.clickForChangeView = this.clickForChangeView.bind(this);
+        this.clickForChangeYear = this.clickForChangeYear.bind(this);
         this.changeYearInStateToOne = this.changeYearInStateToOne.bind(this);
         this.changeMonthInStateToOne = this.changeMonthInStateToOne.bind(this);
-        this.deleteEvent = this.deleteEvent.bind(this);
-        this.toggleshowModalEditEvent = this.toggleshowModalEditEvent.bind(this);
-        this.editEvent = this.editEvent.bind(this);
-        this.saveEditEvent = this.saveEditEvent.bind(this);
     }
 
     whatRenderNowHeader() {
-        if (this.state.activeWindow === 'Year') {
-            return <Header
-                year={this.state.year}
-                month={this.state.monthName}
-                activeWindow={this.state.activeWindow}
-                onClick={this.changeYearInState}
-                clickForChangeView={this.clickForChangeView}
-                changeYearInStateToOne={this.changeYearInStateToOne}
-            />
-        } else {
-            return <Header
-                allMonth={this.state.allMonth}
-                year={this.state.year}
-                month={this.state.monthName}
-                activeWindow={this.state.activeWindow}
-                onClick={this.changeYearInState}
-                clickForChangeView={this.clickForChangeView}
-                clickForViewMonth={this.clickForViewMonth}
-                changeMonthInStateToOne={this.changeMonthInStateToOne}
-            />
-        }
-    };
+        return <Header year={this.state.year}
+                       month={this.state.monthName}
+                       allMonth={this.state.allMonth}
+                       activeWindow={this.state.activeWindow}
+                       onClick={this.changeYearInState}
+                       clickForViewMonth={this.clickForViewMonth}
+                       clickForChangeView={this.clickForChangeView}
+                       changeYearInStateToOne={this.changeYearInStateToOne}
+                       changeMonthInStateToOne={this.changeMonthInStateToOne}
+        />
+    }
 
     whatRenderNowMain() {
         if (this.state.activeWindow === 'Year') {
-            return <CreatYear newArr={this.state.allMonth}
+            return <CreatYear todayDate={this.state.todayDate}
+                              year={this.state.year}
+                              newArr={this.state.allMonth}
+                              allEvent={this.state.allEvent}
                               clickForChangeView={this.clickForChangeView}
                               toggleModal={this.toggleModal}
-                              allEvent={this.state.allEvent}
-                              year={this.state.year}
-                              todayDate={this.state.todayDate}
             />
         } else {
-            return <CreateMonth newArr={this.state.allMonth[this.state.monthName]}
+            return <CreateMonth todayDate={this.state.todayDate}
                                 month={this.state.monthName}
-                                clickForViewMonth={this.clickForViewMonth}
-                                toggleModal={this.toggleModal}
-                                showModal={this.state.showModal}
-                                allEvent={this.state.allEvent}
                                 year={this.state.year}
-                                newValueInput={this.newValueInput}
-                                addNewEvent={this.addNewEvent}
+                                allEvent={this.state.allEvent}
                                 activeDate={this.state.activeDate}
-                                todayDate={this.state.todayDate}
-                                deleteEvent={this.deleteEvent}
-                                showModalEditEvent={this.state.showModalEditEvent}
                                 afterEditEvent={this.state.afterEditEvent}
+                                showModalEditEvent={this.state.showModalEditEvent}
+                                newArr={this.state.allMonth[this.state.monthName]}
+                                editFirstInputValue={this.state.editFirstInputValue}
+                                editSecondInputValue={this.state.editSecondInputValue}
+                                editTitle={this.state.editTitle}
+                                editText={this.state.editText}
+c
+
+                                showModal={this.state.showModal}
                                 editEvent={this.editEvent}
+                                toggleModal={this.toggleModal}
+                                addNewEvent={this.addNewEvent}
+                                deleteEvent={this.deleteEvent}
                                 saveEditEvent={this.saveEditEvent}
-                                toggleshowModalEditEvent={this.toggleshowModalEditEvent}
+                                newValueInput={this.newValueInput}
+                                cancelEditEvent={this.cancelEditEvent}
+                                clickForViewMonth={this.clickForViewMonth}
             />
         }
-    };
+    }
 
 
     toggleModal = (e) => {
-        let newStatus = !this.state.showModal;
+        const newStatus = !this.state.showModal;
         if (newStatus) {
-            if (e.target.id) {
-                this.setState({
-                    showModal: newStatus, activeDate: e.target.id,
-                })
-            } else {
-                this.setState({showModal: newStatus, activeDate: e.target.dataId})
-            }
+            this.setState({
+                showModal: newStatus,
+                activeDate: e.target.id,
+            })
         } else {
-            if (e.target.id) {
-                this.setState({
-                    showModal: newStatus,
-                    activeDate: '',
-                    showModalEditEvent: false,
-                    afterEditEvent: {
-                        monthAndDate: '',
-                        text: '',
-                        title: '',
-                        to: '',
-                        year: '',
-                        _id: ''
-                    },
-                    activeEvent: {
-                        monthAndDate: '',
-                        text: '',
-                        title: '',
-                        to: '',
-                        year: '',
-                        _id: ''
-                    },
-                    editFirstInputValue: '',
-                    editSecondInputValue: '',
-                    editTitle: '',
-                    editText: '',
-                })
-            } else {
-                this.setState({
-                    showModal: newStatus,
-                    activeDate: '',
-                    showModalEditEvent: false,
-                    afterEditEvent: {
-                        monthAndDate: '',
-                        text: '',
-                        title: '',
-                        to: '',
-                        year: '',
-                        _id: ''
-                    },
-                    activeEvent: {
-                        monthAndDate: '',
-                        text: '',
-                        title: '',
-                        to: '',
-                        year: '',
-                        _id: ''
-                    },
-                    editFirstInputValue: '',
-                    editSecondInputValue: '',
-                    editTitle: '',
-                    editText: '',
-                })
-            }
+            this.setState({
+                showModal: newStatus,
+                activeDate: '',
+                showModalEditEvent: false,
+                afterEditEvent: Constants.EMPTYOBJECT,
+                activeEvent: Constants.EMPTYOBJECT,
+            })
         }
-
-    };
-
-    toggleshowModalEditEvent = () => {
-        if (this.state.afterEditEvent.from === '') {
-            this.setState({showModalEditEvent: false})
-        } else {
-            this.setState({showModalEditEvent: true})
-        }
-    };
-
+    }
 
     newValueInput(e) {
-        let afterEditEvent = this.state.afterEditEvent;
-        const {id, value} = e.target;
+        console.log('@@@@@@', e.target.value);
 
+        const {id, value} = e.target;
+        let newId = '';
         if (id.indexOf('.') > -1) {
-            let newId = id.slice(15)
-            if (newId === 'from') {
-                this.setState({editFirstInputValue: value});
-            } else if (newId === 'to') {
-                this.setState({editSecondInputValue: value});
-            } else if (newId === 'title') {
-                this.setState({editTitle: value});
-            } else {
-                this.setState({editText: value});
-            }
+            // cut 'afterEditEvent.' if this edit event
+            newId = id.slice(15)
         } else {
-            this.setState({[id]: value});
+            // if new event
+            newId = id
         }
-    };
+        this.setState({[newId]: value});
+    }
 
     addNewEvent() {
-        let newEvent = validationNewEvent(this.state.firstInputValue,
+        const newEvent = validationNewEvent(this.state.firstInputValue,
             this.state.secondInputValue,
             this.state.year,
             this.state.activeDate,
             this.state.allEvent,
             this.state.title,
             this.state.text);
+
         if (Object.keys(newEvent).length) {
             let allEvent = this.state.allEvent;
             allEvent.push(newEvent);
+
             this.setState({
                 allEvent: allEvent,
+                showModal: !this.state.showModal,
+                showModalEditEvent: false,
+                activeEvent: Constants.EMPTYOBJECT,
+                afterEditEvent: Constants.EMPTYOBJECT,
+
                 firstInputValue: '',
                 secondInputValue: '',
                 title: '',
                 text: '',
-                activeDate: '',
-                showModal: !this.state.showModal,
-                showModalEditEvent: false,
-                activeEvent: {
-                    monthAndDate: '',
-                    text: '',
-                    title: '',
-                    to: '',
-                    year: '',
-                    _id: ''
-                },
-                afterEditEvent: {
-                    monthAndDate: '',
-                    text: '',
-                    title: '',
-                    to: '',
-                    year: '',
-                    _id: ''
-                },
+                activeDate: ''
             })
         }
-    };
+    }
 
     editEvent(id) {
-        this.toggleshowModalEditEvent();
-        let year = id.substr(0, 4);
-        let from = id.substr(-5);
-        let monthAndDate = id.slice(0, -6).slice(5);
-        let allEvent = this.state.allEvent;
-        let newAllEvent = allEvent.filter((item) => {
-            return (item.year === +year && item.monthAndDate === monthAndDate && item.from === from)
-        });
+        const newAllEvent = findActiveEvent(this.state.allEvent, id, true)[0];
+        const {from, to, title, text} = newAllEvent;
         this.setState({
-            afterEditEvent: newAllEvent[0],
-            activeEvent: newAllEvent[0],
-            editFirstInputValue: newAllEvent[0].from,
-            editSecondInputValue: newAllEvent[0].to,
-            editTitle: newAllEvent[0].title,
-            editText: newAllEvent[0].text,
+            showModalEditEvent: true,
+            afterEditEvent: newAllEvent,
+            activeEvent: newAllEvent,
+            editFirstInputValue: from,
+            editSecondInputValue: to,
+            editTitle: title,
+            editText: text,
+        });
+    }
+
+    cancelEditEvent() {
+        this.setState({
+            showModalEditEvent: false,
+            activeEvent: Constants.EMPTYOBJECT,
+            afterEditEvent: Constants.EMPTYOBJECT,
+
+            editFirstInputValue: '',
+            editSecondInputValue: '',
+            editTitle: '',
+            editText: '',
         })
     }
 
     saveEditEvent() {
-        let afterEditEvent = this.state.afterEditEvent;
-        let allEvent = this.state.allEvent;
+        const afterEditEvent = this.state.afterEditEvent;
+        const allEvent = this.state.allEvent;
         let newAllEvent = allEvent.filter((item) => {
                 return (item._id !== afterEditEvent._id)
             }
         );
-
-        let newEvent = validationNewEvent(
+        const newEvent = validationNewEvent(
             this.state.editFirstInputValue,
             this.state.editSecondInputValue,
             afterEditEvent.year,
@@ -294,34 +213,15 @@ class Home extends React.Component {
             this.state.editTitle,
             this.state.editText);
 
-
         if (Object.keys(newEvent).length) {
-
-
             newAllEvent.push(newEvent);
-
-            console.log('newAllEvent', newAllEvent);
-
 
             this.setState({
                 allEvent: newAllEvent,
-                activeEvent: {
-                    monthAndDate: '',
-                    text: '',
-                    title: '',
-                    to: '',
-                    year: '',
-                    _id: ''
-                },
+                activeEvent: Constants.EMPTYOBJECT,
                 showModalEditEvent: false,
-                afterEditEvent: {
-                    monthAndDate: '',
-                    text: '',
-                    title: '',
-                    to: '',
-                    year: '',
-                    _id: ''
-                },
+                afterEditEvent: Constants.EMPTYOBJECT,
+
                 editFirstInputValue: '',
                 editSecondInputValue: '',
                 editTitle: '',
@@ -331,37 +231,14 @@ class Home extends React.Component {
     }
 
     deleteEvent(e) {
-        console.log('@@@@@@', e.target.id);
-        let id = e.target.id;
-        let year = id.substr(0, 4);
-        let from = id.substr(-5);
-        let monthAndDate = id.slice(0, -6).slice(5);
-        let allEvent = this.state.allEvent;
-        let newAllEvent = allEvent.filter((item) => {
-            return (!(item.year === +year && item.monthAndDate === monthAndDate && item.from === from))
-        });
+        const newAllEvent = findActiveEvent(this.state.allEvent, e.target.id, false);
         this.setState({
             allEvent: newAllEvent,
             showModalEditEvent: false,
-            afterEditEvent: {
-                monthAndDate: '',
-                text: '',
-                title: '',
-                to: '',
-                year: '',
-                _id: ''
-            },
-            activeEvent: {
-                monthAndDate: '',
-                text: '',
-                title: '',
-                to: '',
-                year: '',
-                _id: ''
-            },
+            afterEditEvent: Constants.EMPTYOBJECT,
+            activeEvent: Constants.EMPTYOBJECT,
         });
-        console.log('now');
-    };
+    }
 
     clickForChangeView(data, month) {
         if (month) {
@@ -369,30 +246,26 @@ class Home extends React.Component {
         } else {
             this.setState({activeWindow: data})
         }
-    };
+    }
 
     clickForViewMonth(month) {
         this.setState({monthName: month});
-    };
+    }
 
     clickForChangeYear(e) {
         if (e.which === 13) {
-            let newAllMonth = numberOfDaysInAMonthInYear(e.target.value);
-            this.setState({allMonth: newAllMonth, year: e.target.value});
-            e.target.value = '';
+            let yearValue = e.target.value;
+            const newAllMonth = numberOfDaysInAMonthInYear(yearValue);
+            this.setState({allMonth: newAllMonth, year: yearValue});
         }
-    };
+    }
 
     changeYearInStateToOne(sign) {
         let newYear = this.state.year;
-        if (sign === 'plus') {
-            newYear += 1;
-        } else {
-            newYear -= 1;
-        }
+        sign === 'plus' ? ++newYear : --newYear;
         let newAllMonth = numberOfDaysInAMonthInYear(newYear);
         this.setState({year: newYear, allMonth: newAllMonth});
-    };
+    }
 
     changeMonthInStateToOne(sign) {
         let thisYear = this.state.year;
@@ -400,33 +273,29 @@ class Home extends React.Component {
         numMonth = numMonth.getMonth();
         if (sign === 'plus') {
             if (numMonth === 11) {
-                thisYear += 1;
+                ++thisYear;
                 numMonth = 0;
             } else {
-                numMonth += 1;
+                ++numMonth;
             }
-
         } else if (sign === 'minus') {
             if (numMonth === 0) {
-                thisYear -= 1;
+                --thisYear;
                 numMonth = 11;
             } else {
-                numMonth -= 1;
+                --numMonth;
             }
         }
-
         let newMonth = new Date(thisYear, numMonth, 1).toLocaleString('en-US', {month: 'long'});
         this.setState({monthName: newMonth, year: thisYear})
-    };
+    }
 
     changeYearInState(year) {
         if (this.state.activeWindow === 'Year') {
             numberOfDaysInAMonthInYear(year);
             this.setState({year: parseInt(year)});
-
         }
-    };
-
+    }
 
     render() {
         return (
@@ -438,7 +307,7 @@ class Home extends React.Component {
                 </footer>
             </>
         );
-    };
+    }
 }
 
 

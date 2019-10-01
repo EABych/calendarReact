@@ -11,7 +11,8 @@ const CreatOneDay = (props) => {
         props.newArr[props.number] ?
             (<td onClick={props.onClick}
                  className={isThisDayToday ? 'today tdStyleMonth' : 'tdStyleMonth'}
-                 id={`${props.newArr[props.number]} ${props.month}`}>
+                 id={`${props.newArr[props.number]} ${props.month}`}
+                 key={'key'+ props.item}>
                     {props.newArr[props.number]}
                     <ul className='eventList_ul'>
                         <OutlineListOfEventsForTheSelectedDate
@@ -29,11 +30,10 @@ const CreatOneDay = (props) => {
 };
 
 CreatOneDay.propTypes = {
-    number: PropTypes.array.isRequired,
     newArr: PropTypes.array.isRequired,
     month: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
-    allEvent: PropTypes.object.isRequired,
+    allEvent: PropTypes.array.isRequired,
     year: PropTypes.number.isRequired,
     newValueInput: PropTypes.func.isRequired,
     activeDate: PropTypes.string.isRequired,

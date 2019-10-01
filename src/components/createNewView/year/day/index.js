@@ -27,22 +27,21 @@ const CreatOneDay = (props) => {
 
     return (
         props.newArr[props.number] ?
-            (<td
+            (<td key={'key'+ props.item}
                 id={`${props.newArr[props.number]} ${props.month}`}
                 className={classNameTd}
                 data-tooltip={isThereAnEvent ? `${isThereAnEvent} events in this day` : null}
             >
                 {props.newArr[props.number]}
-            </td>) : (<td className="tdStyle invisible" id="0"/>)
+            </td>) : (<td key={'key'+ props.item} className="tdStyle invisible" id="0"/>)
     )
 };
 
 CreatOneDay.propTypes = {
-    number: PropTypes.number.isRequired,
     newArr: PropTypes.array.isRequired,
     month: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
-    allEvent: PropTypes.object.isRequired,
+    allEvent: PropTypes.array.isRequired,
     year: PropTypes.number.isRequired,
     todayDate: PropTypes.object.isRequired,
 };

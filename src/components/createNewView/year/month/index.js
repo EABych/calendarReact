@@ -6,7 +6,7 @@ import * as Constants from './../../../../constants'
 
 function MakeTitleWeek(props) {
     return props.arrNameOfDay.map((item) => {
-        return <td className='tdStyle weekDay' key={item}>{item}</td>
+        return <td className='tdStyle weekDay' key={'key'+ item}>{item}</td>
     })
 }
 
@@ -17,7 +17,6 @@ function MakeWeek(props) {
             newArr={props.newArr}
             month={props.month}
             onClick={props.onClick}
-            key={item}
             allEvent={props.allEvent}
             year={props.year}
             todayDate={props.todayDate}
@@ -57,9 +56,9 @@ const CreateMonth = (props) => {
 CreateMonth.propTypes = {
     newArr: PropTypes.array.isRequired,
     month: PropTypes.string.isRequired,
-    clickForViewMonth: PropTypes.func.isRequired,
+    clickForViewMonth: PropTypes.func,
     toggleModal: PropTypes.func.isRequired,
-    allEvent: PropTypes.object.isRequired,
+    allEvent: PropTypes.array.isRequired,
     year: PropTypes.number.isRequired,
     todayDate: PropTypes.object.isRequired,
     clickForChangeView: PropTypes.func.isRequired,
@@ -69,7 +68,7 @@ MakeWeek.propTypes = {
     newArr: PropTypes.array.isRequired,
     month: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
-    allEvent: PropTypes.object.isRequired,
+    allEvent: PropTypes.array.isRequired,
     year: PropTypes.number.isRequired,
     todayDate: PropTypes.object.isRequired,
 };

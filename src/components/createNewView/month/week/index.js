@@ -23,7 +23,7 @@ function MakeDayList(props) {
 
 const CreatOneWeek = (props) => {
     return (
-        <tr>
+        <tr key={'key'+ props.item}>
             <MakeDayList i={props.i}
                          newArr={props.newArr}
                          month={props.month}
@@ -40,11 +40,11 @@ const CreatOneWeek = (props) => {
 };
 
 CreatOneWeek.propTypes = {
-    i: PropTypes.array.isRequired,
+    i: PropTypes.number.isRequired,
     newArr: PropTypes.array.isRequired,
     month: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
-    allEvent: PropTypes.object.isRequired,
+    allEvent: PropTypes.array.isRequired,
     year: PropTypes.number.isRequired,
     newValueInput: PropTypes.func.isRequired,
     activeDate: PropTypes.string.isRequired,
@@ -52,11 +52,10 @@ CreatOneWeek.propTypes = {
 };
 MakeDayList.propTypes = {
     numberOfDay: PropTypes.array.isRequired,
-    i: PropTypes.array.isRequired,
     newArr: PropTypes.array.isRequired,
     month: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
-    allEvent: PropTypes.object.isRequired,
+    allEvent: PropTypes.array.isRequired,
     year: PropTypes.number.isRequired,
     newValueInput: PropTypes.func.isRequired,
     activeDate: PropTypes.string.isRequired,

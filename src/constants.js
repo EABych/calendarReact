@@ -4,8 +4,16 @@ export const DATETODAY = new Date();
 export const DAY = DATETODAY.getDate();
 export const MONTH = DATETODAY.toLocaleString('en-US', {month: 'long'});
 export const YEAR = DATETODAY.getFullYear();
-export const ALLMONTH = numberOfDaysInAMonthInYear(YEAR)
+export const ALLMONTH = numberOfDaysInAMonthInYear(YEAR);
 export const MINIMUMEVENTTIMELENGTH = 15;
+export const EMPTYOBJECT = {
+    monthAndDate: '',
+    text: '',
+    title: '',
+    to: '',
+    year: '',
+    _id: ''
+};
 export const NAMEOFALLMONTH = [
     'January',
     'February',

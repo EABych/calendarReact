@@ -8,7 +8,7 @@ const OneEventOnList = (props) => {
     }
 
     return (
-        <li id={props.item.monthAndDate} className='eventList_li'>
+        <li id={props.item.monthAndDate} className='eventList_li' key={'key'+ props.item}>
             {props.forWhat === 'day' ?
                 <ul className='eventListEvery_ul' id={props.item.monthAndDate}>
                     <li className='eventListEvery_li' id={props.item.monthAndDate}>
@@ -41,7 +41,7 @@ const OneEventOnList = (props) => {
                            className={haveRedBackground ? 'eventListEvery_li redBackground' : 'eventListEvery_li'}
                            value={props.item.text}>
                     </input>
-                    <button className='deleteButton' id={props.item._id} onClick={(e) => {
+                    <button className='smallButton' id={props.item._id} onClick={(e) => {
                         props.editEvent(e.target.id)
                     }}>edit
                     </button>

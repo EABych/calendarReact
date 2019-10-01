@@ -7,7 +7,7 @@ import * as Constants from './../../../constants';
 function MakeMonthList(props) {
     return props.arrNameOfDay.map((item, i) => {
         return (
-            <div className='oneMonthInto' data-value={item} key={i}>
+            <div className='oneMonthInto' data-value={item} key={'key'+ item + i} >
                 <CreateMonth newArr={props.newArr[item]}
                              month={item}
                              clickForViewMonth={props.clickForViewMonth}
@@ -38,19 +38,19 @@ const CreatYear = (props) => {
 
 CreatYear.propTypes = {
     year: PropTypes.number.isRequired,
-    allEvent: PropTypes.object.isRequired,
+    allEvent: PropTypes.array.isRequired,
     todayDate: PropTypes.object.isRequired,
     clickForChangeView: PropTypes.func.isRequired,
     toggleModal: PropTypes.func.isRequired,
-    allMonth: PropTypes.object.isRequired,
+    allMonth: PropTypes.object,
 };
 
 MakeMonthList.propTypes = {
     newArr: PropTypes.object.isRequired,
-    clickForViewMonth: PropTypes.func.isRequired,
+    clickForViewMonth: PropTypes.func,
     toggleModal: PropTypes.func.isRequired,
     arrNameOfDay: PropTypes.array.isRequired,
-    allEvent: PropTypes.object.isRequired,
+    allEvent: PropTypes.array.isRequired,
     year: PropTypes.number.isRequired,
     todayDate: PropTypes.object.isRequired,
     clickForChangeView: PropTypes.func.isRequired,

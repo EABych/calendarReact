@@ -6,51 +6,57 @@ import PropTypes from "prop-types";
 import * as Constants from './../../../constants'
 import './style/Month.css'
 
+function MakeInputForEdit(props) {
+    return (
+        <input type={props.type}
+               className='eventListEvery_li'
+               value={props.value}
+               id={`afterEditEvent.${props.id}`}
+               onChange={props.onChange}
+        />
+    )
+}
+
 
 function EditOneEvent(props) {
-    const {from, to, title, text} = props.afterEditEvent;
     return (
         <div className='redFrame'>
             <p>Create event</p>
             <div>
-                <input type="time"
-                       className='eventListEvery_li'
-                       defaultValue={from}
-                       id='afterEditEvent.from'
-                       onChange={props.newValueInput}
-                />
-                <input type="time"
-                       className='eventListEvery_li'
-                       defaultValue={to}
-                       id='afterEditEvent.to'
-                       onChange={props.newValueInput}
-                />
-                <input className='eventListEvery_li'
-                       defaultValue={title}
-                       id='afterEditEvent.title'
-                       onChange={props.newValueInput}
-                />
-                <input type='text'
-                       className='eventListEvery_li'
-                       defaultValue={text}
-                       id='afterEditEvent.text'
-                       onChange={props.newValueInput}
-                />
-
+                <MakeInputForEdit type='time'
+                                  value={props.editFirstInputValue}
+                                  id='editFirstInputValue'
+                                  onChange={props.newValueInput}/>
+                <MakeInputForEdit type='time'
+                                  value={props.editSecondInputValue}
+                                  id='editSecondInputValue'
+                                  onChange={props.newValueInput}/>
+                <MakeInputForEdit type='text'
+                                  value={props.editTitle}
+                                  id='editTitle'
+                                  onChange={props.newValueInput}/>
+                <MakeInputForEdit type='text'
+                                  value={props.editText}
+                                  id='editText'
+                                  onChange={props.newValueInput}/>
             </div>
-            <button className='deleteButton'
+            <button className='smallButton'
+                    onClick={props.cancelEditEvent}>
+                Cancel
+            </button>
+            <button className='smallButton'
                     id={props.afterEditEvent._id}
                     onClick={props.deleteEvent}>
                 Delete event
             </button>
-            <button className='deleteButton' onClick={props.saveEditEvent}>Save changes</button>
+            <button className='smallButton' onClick={props.saveEditEvent}>Save changes</button>
         </div>
     )
 }
 
 function MakeTitleWeek(props) {
     return props.arrNameOfDay.map((item) => {
-        return <td className='tdStyle weekDayOnMonth' key={item}>{item}</td>
+        return <td className='tdStyle weekDayOnMonth' key={'key' + item}>{item}</td>
     })
 }
 
@@ -118,8 +124,11 @@ const CreateMonth = (props) => {
                         saveEditEvent={props.saveEditEvent}
                         allEvent={props.allEvent}
                         deleteEvent={props.deleteEvent}
-                        toggleshowModalEditEvent={props.toggleshowModalEditEvent}
-
+                        cancelEditEvent={props.cancelEditEvent}
+                        editFirstInputValue={props.editFirstInputValue}
+                        editSecondInputValue={props.editSecondInputValue}
+                        editTitle={props.editTitle}
+                        editText={props.editText}
                     /> : null}
                     <p className='titleAddNewEvent'> Add new event </p>
                     <MakeInputForAddTime name='From:' numberOfInputValue='firstInputValue'
@@ -162,10 +171,10 @@ const CreateMonth = (props) => {
 CreateMonth.propTypes = {
     newArr: PropTypes.array.isRequired,
     month: PropTypes.string.isRequired,
-    clickForViewMonth: PropTypes.func.isRequired,
+    clickForViewMonth: PropTypes.func,
     toggleModal: PropTypes.func.isRequired,
     showModal: PropTypes.bool.isRequired,
-    allEvent: PropTypes.object.isRequired,
+    allEvent: PropTypes.array.isRequired,
     year: PropTypes.number.isRequired,
     newValueInput: PropTypes.func.isRequired,
     addNewEvent: PropTypes.func.isRequired,
@@ -193,7 +202,7 @@ MakeWeek.propTypes = {
     newArr: PropTypes.array.isRequired,
     month: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
-    allEvent: PropTypes.object.isRequired,
+    allEvent: PropTypes.array.isRequired,
     year: PropTypes.number.isRequired,
     newValueInput: PropTypes.func.isRequired,
     activeDate: PropTypes.string.isRequired,

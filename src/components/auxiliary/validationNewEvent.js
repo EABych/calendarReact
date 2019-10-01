@@ -2,8 +2,6 @@ import * as Constants from '../../constants'
 import doublesTheNumber from './doublesTheNumber';
 import searchesForEventsOnSelectedDate from './searchesForEventsOnSelectedDate';
 
-
-
 export default function validationNewEvent(firstInputValue,
     secondInputValue, 
     year, 
@@ -19,13 +17,9 @@ export default function validationNewEvent(firstInputValue,
     const minutes = doublesTheNumber(firstTimePlusFifteen.getMinutes());
     firstTimePlusFifteen = hours.toString() + ':' + minutes.toString();
     let eventOverlayCheck = searchesForEventsOnSelectedDate(year, activeDate, allEvent).every(function (eventTime) {
-        console.log('@@@@@@',firstInputValue, eventTime.to , secondInputValue , eventTime.from);
         return firstInputValue > eventTime.to || secondInputValue < eventTime.from
     });
-
-
     let objResponse = {};
-
     if (!firstInputValue || !secondInputValue) {
         alert('error: add time');
         return objResponse; 
