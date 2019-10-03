@@ -1,0 +1,147 @@
+#modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 998;
+    background-color: rgba(0, 0, 0, .7);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#modal .modal {
+    padding: 20px 35px;
+    background-color: rgba(209, 197, 192, 0.87);
+    opacity: 1;
+    border-radius: 20px;
+    text-shadow: 0 3px 3px rgba(255, 255, 255, 0.5), 3px 3px 10px rgba(76, 33, 20, 0.45);
+    color: #2b010194;
+    box-shadow: 0 50px 100px rgba(0, 0, 0, .4);
+    list-style-type: none;
+}
+
+#modal .modal .modalInput {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 300px;
+}
+
+#modal .modal .modal_close_container {
+    text-align: right;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 25px;
+    display: flex;
+    align-items: flex-end;
+    padding: 10px;
+}
+
+
+#modal .modal .modal_close {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
+
+#modal .modal .modal_close div ul {
+    margin: 0;
+    border: 2px solid black;
+    padding: 0;
+}
+
+#modal .modal p {
+    text-align: center;
+    font-family: Garuda;
+    margin: 5px;
+}
+
+#modal .modal input {
+    border-radius: 5px;
+    font-family: Garuda;
+    color: #401114;
+    margin: 5px;
+}
+
+#modal .modal .divForPAndInput {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#modal .modal .titleAddNewEvent {
+    background-color: rgba(64, 17, 20, 0.25);
+    margin-top: 30px !important;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+}
+
+#modal .modal .smallButton {
+    background-color: rgba(64, 17, 20, 0.56);
+    text-decoration: none;
+    outline: none;
+    display: inline-block;
+    border-radius: 10px;
+    box-shadow: 0 0 40px 40px #ffffff inset, 0 0 0 0 #684044;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #684044;
+    transition: .15s ease-in-out;
+    font-size: 11px;
+    margin: 5px 0;
+}
+
+#modal .modal .smallButton:hover {
+    box-shadow: 0 0 10px 0 #684044 inset, 0 0 10px 4px rgba(104, 64, 68, 0.59);
+    color: #ffffff;
+}
+
+#modal .modal .buttonAddNewEvent {
+    background-color: rgba(64, 17, 20, 0.56);
+    height: 50px;
+    text-decoration: none;
+    outline: none;
+    display: inline-block;
+    padding: 15px 30px;
+    margin: 10px 260px;
+    border-radius: 10px;
+    box-shadow: 0 0 40px 40px #ffffff inset, 0 0 0 0 #684044;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #684044;
+    transition: .15s ease-in-out;
+    font-size: 14px;
+}
+
+#modal .modal .buttonAddNewEvent:hover {
+    box-shadow: 0 0 10px 0 #684044 inset, 0 0 10px 4px rgba(104, 64, 68, 0.59);
+    color: #ffffff;
+}
+
+.redFrame {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /*flex-wrap: wrap;*/
+    /*justify-content: space-around;*/
+    align-items: center;
+    margin: 10px 0;
+    border: 2px solid darkred;
+    background-color: rgba(255, 0, 0, 0.18);
+}
+
+.redBackground {
+    border: 2px solid darkred !important;
+    background-color: rgba(255, 0, 0, 0.18) !important;
+}
